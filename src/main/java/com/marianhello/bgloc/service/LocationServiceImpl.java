@@ -18,6 +18,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ServiceInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Binder;
@@ -414,7 +415,7 @@ public class LocationServiceImpl extends Service implements ProviderDelegate, Lo
                 mProvider.onCommand(LocationProvider.CMD_SWITCH_MODE,
                         LocationProvider.FOREGROUND_MODE);
             }
-            super.startForeground(NOTIFICATION_ID, notification);
+            super.startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
             mIsInForeground = true;
         }
     }
@@ -631,7 +632,7 @@ public class LocationServiceImpl extends Service implements ProviderDelegate, Lo
     @Override
     public Intent registerReceiver(BroadcastReceiver receiver, IntentFilter filter) {
         if (Build.VERSION.SDK_INT >= 34) {
-        return super.registerReceiver(receiver, filter, null, mServiceHandler, Context.RECEIVER_EXPORTED);
+        return super.registerReceiver(receiver, filter, null, mServiceHandler, Context.RECEIVER_NOT_EXPORTED);
       } else {
         return super.registerReceiver(receiver, filter, null, mServiceHandler);
       }

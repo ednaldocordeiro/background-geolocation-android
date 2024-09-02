@@ -28,8 +28,7 @@ import java.util.Iterator;
 /**
  * Config class
  */
-public class Config implements Parcelable
-{
+public class Config implements Parcelable {
     public static final String BUNDLE_KEY = "config";
 
     public static final int DISTANCE_FILTER_PROVIDER = 0;
@@ -49,9 +48,9 @@ public class Config implements Parcelable
     private String notificationIconSmall;
     private String notificationIconColor;
     private Integer locationProvider;
-    private Integer interval; //milliseconds
-    private Integer fastestInterval; //milliseconds
-    private Integer activitiesInterval; //milliseconds
+    private Integer interval; // milliseconds
+    private Integer fastestInterval; // milliseconds
+    private Integer activitiesInterval; // milliseconds
     private Boolean stopOnTerminate;
     private Boolean startOnBoot;
     private Boolean startForeground;
@@ -64,7 +63,7 @@ public class Config implements Parcelable
     private Integer maxLocations;
     private LocationTemplate template;
 
-    public Config () {
+    public Config() {
     }
 
     // Copy constructor
@@ -93,7 +92,7 @@ public class Config implements Parcelable
         this.httpHeaders = CloneHelper.deepCopy(config.httpHeaders);
         this.maxLocations = config.maxLocations;
         if (config.template instanceof AbstractLocationTemplate) {
-            this.template = ((AbstractLocationTemplate)config.template).clone();
+            this.template = ((AbstractLocationTemplate) config.template).clone();
         }
     }
 
@@ -137,9 +136,9 @@ public class Config implements Parcelable
         config.notificationIconSmall = "";
         config.notificationIconColor = "";
         config.locationProvider = DISTANCE_FILTER_PROVIDER;
-        config.interval = 600000; //milliseconds
-        config.fastestInterval = 120000; //milliseconds
-        config.activitiesInterval = 10000; //milliseconds
+        config.interval = 600000; // milliseconds
+        config.fastestInterval = 120000; // milliseconds
+        config.activitiesInterval = 10000; // milliseconds
         config.stopOnTerminate = true;
         config.startOnBoot = false;
         config.startForeground = true;
@@ -189,8 +188,7 @@ public class Config implements Parcelable
         out.writeBundle(bundle);
     }
 
-    public static final Parcelable.Creator<Config> CREATOR
-            = new Parcelable.Creator<Config>() {
+    public static final Parcelable.Creator<Config> CREATOR = new Parcelable.Creator<Config>() {
         public Config createFromParcel(Parcel in) {
             return new Config(in);
         }
@@ -292,11 +290,11 @@ public class Config implements Parcelable
         return notificationIconLarge != null && !notificationIconLarge.isEmpty();
     }
 
-    public String getLargeNotificationIcon () {
+    public String getLargeNotificationIcon() {
         return notificationIconLarge;
     }
 
-    public void setLargeNotificationIcon (String icon) {
+    public void setLargeNotificationIcon(String icon) {
         this.notificationIconLarge = icon;
     }
 
@@ -304,11 +302,11 @@ public class Config implements Parcelable
         return notificationIconSmall != null && !notificationIconSmall.isEmpty();
     }
 
-    public String getSmallNotificationIcon () {
+    public String getSmallNotificationIcon() {
         return notificationIconSmall;
     }
 
-    public void setSmallNotificationIcon (String icon) {
+    public void setSmallNotificationIcon(String icon) {
         this.notificationIconSmall = icon;
     }
 
@@ -424,6 +422,7 @@ public class Config implements Parcelable
     public boolean hasUrl() {
         return url != null;
     }
+
     public boolean hasValidUrl() {
         return url != null && !url.isEmpty();
     }
@@ -439,6 +438,7 @@ public class Config implements Parcelable
     public boolean hasSyncUrl() {
         return syncUrl != null;
     }
+
     public boolean hasValidSyncUrl() {
         return syncUrl != null && !syncUrl.isEmpty();
     }
@@ -481,7 +481,8 @@ public class Config implements Parcelable
 
     public void setHttpHeaders(JSONObject httpHeaders) throws JSONException {
         // intentionally set httpHeaders to empty hash map
-        // this allows to reset headers in .fromJSONArray providing empty httpHeaders JSONObject
+        // this allows to reset headers in .fromJSONArray providing empty httpHeaders
+        // JSONObject
         this.httpHeaders = new HashMap<String, String>();
         if (httpHeaders == null) {
             return;
@@ -521,7 +522,7 @@ public class Config implements Parcelable
     }
 
     @Override
-    public String toString () {
+    public String toString() {
         return new StringBuffer()
                 .append("Config[distanceFilter=").append(getDistanceFilter())
                 .append(" stationaryRadius=").append(getStationaryRadius())
@@ -530,7 +531,7 @@ public class Config implements Parcelable
                 .append(" fastestInterval=").append(getFastestInterval())
                 .append(" activitiesInterval=").append(getActivitiesInterval())
                 .append(" isDebugging=").append(isDebugging())
-                .append(" stopOnTerminate=" ).append(getStopOnTerminate())
+                .append(" stopOnTerminate=").append(getStopOnTerminate())
                 .append(" stopOnStillActivity=").append(getStopOnStillActivity())
                 .append(" startOnBoot=").append(getStartOnBoot())
                 .append(" startForeground=").append(getStartForeground())
@@ -551,14 +552,14 @@ public class Config implements Parcelable
                 .toString();
     }
 
-    public Parcel toParcel () {
+    public Parcel toParcel() {
         Parcel parcel = Parcel.obtain();
         this.writeToParcel(parcel, 0);
         parcel.setDataPosition(0);
         return parcel;
     }
 
-    public Bundle toBundle () {
+    public Bundle toBundle() {
         Bundle bundle = new Bundle();
         bundle.putParcelable(BUNDLE_KEY, this);
         return bundle;
@@ -643,7 +644,7 @@ public class Config implements Parcelable
         return merger;
     }
 
-    public static Config fromByteArray (byte[] byteArray) {
+    public static Config fromByteArray(byte[] byteArray) {
         Parcel parcel = Parcel.obtain();
         parcel.unmarshall(byteArray, 0, byteArray.length);
         parcel.setDataPosition(0);
